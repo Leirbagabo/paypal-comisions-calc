@@ -5,8 +5,8 @@
 <main>
   <div class="container">
     <div class="options">
-      <button>enviar</button>
-      <button>recibir</button>
+      <button><i class="fas fa-hand-holding-usd" style="font-size:4rem;"></i><br> Enviar </button>
+      <button><i class="fas fa-piggy-bank" style="font-size:4rem;"></i><br>Recibir</button>
     </div>
     <div class="inputs">
       <span>Si se envian usd:</span>
@@ -31,7 +31,7 @@
   .container {
     background-color: rgb(55, 119, 156);
     width: 30vw;
-    min-height: 80vh;
+    height: auto;
     border-radius: 8%;
     box-shadow: 0px 0px 10px 6px darkslategray;
   }
@@ -49,6 +49,7 @@
 	height:150px;
 	width:150px;
 	margin:2%;
+  box-shadow: 0px 0px 12px 8px darkslategray;
   border-radius:100%;
 
   }
