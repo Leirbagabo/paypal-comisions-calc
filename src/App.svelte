@@ -2,13 +2,15 @@
   const ppcomision= 0.30;
   //valor input
   let value ="";
-  //valor convertido a numero con re-render on input
-  $:  valuenum= Number(value);
   //porcentaje comision
   let comisionpercent;
-  $ valuenum;
+ 
+  
   //cuanto recibe
+  
   let totalrecibido;
+ 
+  
 
   function handleInput(_event) {
     // Delay actual processing to the next
@@ -29,8 +31,8 @@
       // previous valid version
       //
       value = sanitize(value);
-      comisionpercent = comision(valuenum);
-      totalrecibido = recibido(comisionpercent);
+      comisionpercent = comision(value);
+      totalrecibido = recibido(comisionpercent,  value);
     };
   }
   function sanitize(string) {
@@ -42,18 +44,18 @@
         alert("just num pls");
       }
     }
-    return result;
+    return Number(result);
   }
 
-//$:console.log(valuenum);
+//comision percent
 function comision(){
- let result=(valuenum*5.4)/100 +ppcomision;;
- return result.toFixed(2);
+ let result=(value*5.4)/100 +ppcomision;
+ return Number(result.toFixed(2));
 };
 
 function recibido(){
- let result=valuenum+comisionpercent;
- return result.toFixed(2);
+ let result=Number(value)-Number(comisionpercent);
+ return result;
 };
   
 </script>
