@@ -2,6 +2,7 @@
   const ppcomision= 0.30;
   //valor input
   let value ="";
+  $: valuenum= Number(value);
   //porcentaje comision
   let comisionpercent;
  
@@ -44,7 +45,7 @@
         alert("just num pls");
       }
     }
-    return Number(result);
+    return result;
   }
 
 //comision percent
@@ -55,7 +56,7 @@ function comision(){
 
 function recibido(){
  let result=Number(value)-Number(comisionpercent);
- return result;
+ return result.toFixed(2);
 };
   
 </script>
@@ -78,7 +79,7 @@ function recibido(){
       <span>La comision es de:</span>
       <input type="text" disabled placeholder={comisionpercent} id="comision" />
       <span>Se reciben usd:</span>
-      <input type="text" placeholder={totalrecibido} disabled />
+      <input type="text" placeholder={totalrecibido} disabled  id="recitotal"/>
     </div>
   </div>
 </main>
@@ -129,6 +130,11 @@ function recibido(){
     height: 100%;
     bottom: 50px;
     text-align: center;
+  }
+
+  #recitotal{
+    text-align:center;
+  font-size: 1.8rem;
   }
 
   @media (min-width: 640px) {
