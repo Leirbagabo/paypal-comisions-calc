@@ -115,7 +115,7 @@
       >
     </div>
     <div class="inputs" bind:this={enviar}>
-      <span>Si se envian usd:</span>
+      <span>Si se envian USD:</span>
       <input
         type="text"
         placeholder="0"
@@ -129,7 +129,7 @@
         placeholder={envcomisionpercent}
         id="comision"
       />
-      <span>Se reciben usd:</span>
+      <span>Se reciben USD:</span>
       <input
         type="text"
         placeholder={totalrecibido}
@@ -139,7 +139,7 @@
     </div>
 
     <div class="inputs" bind:this={recibir} id="recibir">
-      <span>Para recibir usd:</span>
+      <span>Para recibir USD:</span>
       <input
         type="text"
         placeholder="0"
@@ -148,7 +148,7 @@
       />
       <span>La comision es de:</span>
       <input type="text" disabled placeholder={reccomisionpercent} />
-      <span>Hay que enviar usd:</span>
+      <span>Hay que enviar USD:</span>
       <input type="text" placeholder={recenv} disabled class="recitotal" />
     </div>
   </div>
