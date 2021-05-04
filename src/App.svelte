@@ -1,21 +1,20 @@
 <script>
-  const ppcomision= 0.30;
+  const ppcomision = 0.3;
 
   //env module
   //valor input enviar
-  let envvalue ="";
-  $: envvaluenum= Number(envvalue);
+  let envvalue = "";
+  $: envvaluenum = Number(envvalue);
   //porcentaje comision
   let envcomisionpercent;
   //cuanto recibe
   let totalrecibido;
 
   //recibir module
-  let recvalue ="";
-  $: recvaluenum= Number(recvalue);
+  let recvalue = "";
+  $: recvaluenum = Number(recvalue);
   let reccomisionpercent;
   let recenv;
-
 
   function handleInput(_event) {
     // Delay actual processing to the next
@@ -37,10 +36,10 @@
       //env
       envvalue = sanitize(envvalue);
       envcomisionpercent = comision(envvalue);
-      totalrecibido = recibido(envcomisionpercent,  envvalue);
-//rec
+      totalrecibido = recibido(envcomisionpercent, envvalue);
+      //rec
       recvalue = sanitize(recvalue);
-      reccomisionpercent = reccomision( recenv, recvaluenum);
+      reccomisionpercent = reccomision(recenv, recvaluenum);
       recenv = reciben(recvalue);
     };
   }
@@ -56,39 +55,39 @@
     return result;
   }
 
-//comision percent env
-function comision(){
- let result=(envvalue*5.4)/100 +ppcomision;
- return Number(result.toFixed(2));
-};
-// recibido env
-function recibido(){
- let result=Number(envvalue)-Number(envcomisionpercent);
- return result.toFixed(2);
-};
+  //comision percent env
+  function comision() {
+    let result = (envvalue * 5.4) / 100 + ppcomision;
+    return Number(result.toFixed(2));
+  }
+  // recibido env
+  function recibido() {
+    let result = Number(envvalue) - Number(envcomisionpercent);
+    return result.toFixed(2);
+  }
 
-//rec
-function reccomision(){
-  let result= reciben() - recvaluenum ;
- return Number(result.toFixed(2));
-};
+  //rec
+  function reccomision() {
+    let result = reciben() - recvaluenum;
+    return Number(result.toFixed(2));
+  }
 
-// recibido env
-function reciben(){
- let result=(recvaluenum + ppcomision)/0.946;
- return Number(result.toFixed(2));
-};
+  // recibido env
+  function reciben() {
+    let result = (recvaluenum + ppcomision) / 0.946;
+    return Number(result.toFixed(2));
+  }
 
-//toggle
-let enviar;
+  //toggle
+  let enviar;
 
-let recibir;
+  let recibir;
 
- function showenv(){
-  enviar.style.display='Block';
-  recibir.style.display='none';
-  //console.log(enviar.style.display='none');
- /* if (enviar.style.display==='' & recibir.style.display==='block' ) {
+  function showenv() {
+    enviar.style.display = "Block";
+    recibir.style.display = "none";
+    //console.log(enviar.style.display='none');
+    /* if (enviar.style.display==='' & recibir.style.display==='block' ) {
     enviar.style.display="block";
     recibir.style.display="";
 } else if (enviar.style.display==='block' & recibir.style.display===''){
@@ -96,46 +95,61 @@ let recibir;
     recibir.style.display="block";
 }
    */
+  }
 
-  
- }
-
- function showrec(){
-  enviar.style.display='none';
-  recibir.style.display='Block';
- }
+  function showrec() {
+    enviar.style.display = "none";
+    recibir.style.display = "Block";
+  }
 </script>
 
 <main>
   <div class="container">
     <div class="options">
-      
-      <button on:click="{showenv}"
+      <button on:click={showenv}
         ><i class="fas fa-hand-holding-usd" style="font-size:4rem;" /><br /> Enviar
       </button>
-      <button on:click="{showrec}"
+      <button on:click={showrec}
         ><i class="fas fa-donate" style="font-size:4rem;" /><br
         />Recibir</button
       >
     </div>
-    <div class="inputs"  bind:this={enviar}  >
+    <div class="inputs" bind:this={enviar}>
       <span>Si se envian usd:</span>
-      <input type="text" placeholder="0" 	on:input={handleInput} 
-      bind:value={envvalue} />
+      <input
+        type="text"
+        placeholder="0"
+        on:input={handleInput}
+        bind:value={envvalue}
+      />
       <span>La comision es de:</span>
-      <input type="text" disabled placeholder={envcomisionpercent} id="comision" />
+      <input
+        type="text"
+        disabled
+        placeholder={envcomisionpercent}
+        id="comision"
+      />
       <span>Se reciben usd:</span>
-      <input type="text" placeholder={totalrecibido} disabled  id="recitotal"/>
+      <input
+        type="text"
+        placeholder={totalrecibido}
+        disabled
+        class="recitotal"
+      />
     </div>
 
     <div class="inputs" bind:this={recibir} id="recibir">
       <span>Para recibir usd:</span>
-      <input type="text" placeholder="0" 	on:input={handleInput} 
-      bind:value={recvalue} />
+      <input
+        type="text"
+        placeholder="0"
+        on:input={handleInput}
+        bind:value={recvalue}
+      />
       <span>La comision es de:</span>
-      <input type="text" disabled placeholder={reccomisionpercent}  />
+      <input type="text" disabled placeholder={reccomisionpercent} />
       <span>Hay que enviar usd:</span>
-      <input type="text" placeholder={recenv} disabled  />
+      <input type="text" placeholder={recenv} disabled class="recitotal" />
     </div>
   </div>
 </main>
@@ -182,21 +196,17 @@ let recibir;
     font-size: 1.4rem;
   }
   .inputs {
-    display:none;
+    display: none;
     position: relative;
     height: 100%;
     bottom: 50px;
     text-align: center;
-    
   }
 
-  #recitotal{
-    text-align:center;
-  font-size: 1.8rem;
+  .recitotal {
+    text-align: center;
+    font-size: 1.8rem;
   }
-
-
-
 
   @media (min-width: 640px) {
     main {
