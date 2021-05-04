@@ -1,17 +1,21 @@
 <script>
   const ppcomision= 0.30;
-  //valor input
-  let value ="";
-  $: valuenum= Number(value);
+
+  //env module
+  //valor input enviar
+  let envvalue ="";
+  $: envvaluenum= Number(envvalue);
   //porcentaje comision
-  let comisionpercent;
- 
-  
+  let envcomisionpercent;
   //cuanto recibe
-  
   let totalrecibido;
- 
-  
+
+  //recibir module
+  let recvalue ="";
+  $: recvaluenum= Number(recvalue);
+  let reccomisionpercent;
+  let recenv;
+
 
   function handleInput(_event) {
     // Delay actual processing to the next
@@ -30,10 +34,14 @@
       // reactivity should easily detect
       // when we CHANGE it back to the
       // previous valid version
-      //
-      value = sanitize(value);
-      comisionpercent = comision(value);
-      totalrecibido = recibido(comisionpercent,  value);
+      //env
+      envvalue = sanitize(envvalue);
+      envcomisionpercent = comision(envvalue);
+      totalrecibido = recibido(envcomisionpercent,  envvalue);
+//rec
+      recvalue = sanitize(recvalue);
+      reccomisionpercent = reccomision( recenv, recvaluenum);
+      recenv = reciben(recvalue);
     };
   }
   function sanitize(string) {
@@ -48,38 +56,86 @@
     return result;
   }
 
-//comision percent
+//comision percent env
 function comision(){
- let result=(value*5.4)/100 +ppcomision;
+ let result=(envvalue*5.4)/100 +ppcomision;
+ return Number(result.toFixed(2));
+};
+// recibido env
+function recibido(){
+ let result=Number(envvalue)-Number(envcomisionpercent);
+ return result.toFixed(2);
+};
+
+//rec
+function reccomision(){
+  let result= reciben() - recvaluenum ;
  return Number(result.toFixed(2));
 };
 
-function recibido(){
- let result=Number(value)-Number(comisionpercent);
- return result.toFixed(2);
+// recibido env
+function reciben(){
+ let result=(recvaluenum + ppcomision)/0.946;
+ return Number(result.toFixed(2));
 };
+
+//toggle
+let enviar;
+
+let recibir;
+
+ function showenv(){
+  enviar.style.display='Block';
+  recibir.style.display='none';
+  //console.log(enviar.style.display='none');
+ /* if (enviar.style.display==='' & recibir.style.display==='block' ) {
+    enviar.style.display="block";
+    recibir.style.display="";
+} else if (enviar.style.display==='block' & recibir.style.display===''){
+  enviar.style.display="";
+    recibir.style.display="block";
+}
+   */
+
   
+ }
+
+ function showrec(){
+  enviar.style.display='none';
+  recibir.style.display='Block';
+ }
 </script>
 
 <main>
   <div class="container">
     <div class="options">
-      <button
+      
+      <button on:click="{showenv}"
         ><i class="fas fa-hand-holding-usd" style="font-size:4rem;" /><br /> Enviar
       </button>
-      <button
+      <button on:click="{showrec}"
         ><i class="fas fa-donate" style="font-size:4rem;" /><br
         />Recibir</button
       >
     </div>
-    <div class="inputs">
+    <div class="inputs"  bind:this={enviar}  >
       <span>Si se envian usd:</span>
       <input type="text" placeholder="0" 	on:input={handleInput} 
-      bind:value={value} />
+      bind:value={envvalue} />
       <span>La comision es de:</span>
-      <input type="text" disabled placeholder={comisionpercent} id="comision" />
+      <input type="text" disabled placeholder={envcomisionpercent} id="comision" />
       <span>Se reciben usd:</span>
       <input type="text" placeholder={totalrecibido} disabled  id="recitotal"/>
+    </div>
+
+    <div class="inputs" bind:this={recibir} id="recibir">
+      <span>Para recibir usd:</span>
+      <input type="text" placeholder="0" 	on:input={handleInput} 
+      bind:value={recvalue} />
+      <span>La comision es de:</span>
+      <input type="text" disabled placeholder={reccomisionpercent}  />
+      <span>Hay que enviar usd:</span>
+      <input type="text" placeholder={recenv} disabled  />
     </div>
   </div>
 </main>
@@ -126,16 +182,21 @@ function recibido(){
     font-size: 1.4rem;
   }
   .inputs {
+    display:none;
     position: relative;
     height: 100%;
     bottom: 50px;
     text-align: center;
+    
   }
 
   #recitotal{
     text-align:center;
   font-size: 1.8rem;
   }
+
+
+
 
   @media (min-width: 640px) {
     main {
