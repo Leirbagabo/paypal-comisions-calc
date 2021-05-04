@@ -86,6 +86,10 @@
   function showenv() {
     enviar.style.display = "Block";
     recibir.style.display = "none";
+    envvalue="";
+    envcomisionpercent=null;
+  //cuanto recibe
+    totalrecibido=null;
     //console.log(enviar.style.display='none');
     /* if (enviar.style.display==='' & recibir.style.display==='block' ) {
     enviar.style.display="block";
@@ -100,6 +104,9 @@
   function showrec() {
     enviar.style.display = "none";
     recibir.style.display = "Block";
+    recvalue="";
+    reccomisionpercent=null;
+    recenv=null;
   }
 </script>
 
